@@ -1,7 +1,0 @@
-https://stackoverflow.com/questions/70898563/how-to-pass-a-variable-to-a-script-in-user-data
-
-https://www.google.com/search?rlz=1C1CHBF_en-GBGB946GB946&sxsrf=ALiCzsaCpQ2jOy-vcAwBn1BicxNOqtaL8A:1656603454926&q=aws+pass+variable+into+userdata+shell+script&spell=1&sa=X&ved=2ahUKEwiTp9vjwNX4AhX8S0EAHebhDU4QBSgAegQIARAy&biw=1443&bih=917&dpr=1
-
-Was Qwiklabs old Tech ess template?
-
-https://www.cloud-plusplus.com/post/create-php-application-on-ec2-instance-with-amazon-rds-as-backend
