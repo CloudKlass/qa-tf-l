@@ -16,8 +16,6 @@ resource "aws_instance" "web" {
   ami           = "ami-098e42ae54c764c35"
   instance_type = "t2.micro"
 
-  depends_on = [aws_instance.SQL_Server]
-
   tags = {
     Name = "Lab2 EC2 Web App",
     KernelVers = "5.10",
