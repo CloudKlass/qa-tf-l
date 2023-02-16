@@ -9,9 +9,9 @@
 data "terraform_remote_state" "eks" {
   backend = "remote"
    config = {
-    organization = "QATIP"
+    organization = "TestOrg-QATIP" # Change this to match the organisation created earlier
     workspaces = {
-      name = "lab6-workspace"
+      name = "lab6-workspace" # Change this to match the workspace created earlier
   }
 }
 }

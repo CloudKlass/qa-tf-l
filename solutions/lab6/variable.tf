@@ -1,7 +1,7 @@
 variable "region" {
   description = "location to build resources"
   type        = string
-  default     = "us-east-2"
+  default     = "us-west-2"
 }
 
 variable "instance_type" {
