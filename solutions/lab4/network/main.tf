@@ -14,7 +14,7 @@ resource "aws_internet_gateway" "labigw" {
   }
 }
 
-resource "aws_route_table" "public_rt" {
+resource "aws_default_route_table" "public_rt" {
     vpc_id = aws_vpc.lab4_vpc.id
 
     route {
@@ -22,12 +22,6 @@ resource "aws_route_table" "public_rt" {
         gateway_id=aws_internet_gateway.labigw.id
   }
 }
-
-resource "aws_route_table_association" "public_rta" {
-    subnet_id      = aws_subnet.public_subnet.id
-    route_table_id = aws_route_table.public_rt.id
-}
-
 
 resource "aws_subnet" "public_subnet" {
   for_each = var.prefix
