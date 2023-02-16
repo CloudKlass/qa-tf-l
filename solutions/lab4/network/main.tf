@@ -6,6 +6,23 @@ resource "aws_vpc" "lab4_vpc" {
   }
 }
 
+resource "aws_internet_gateway" "labigw" {
+  vpc_id = aws_vpc.lab4_vpc.id
+
+  tags = {
+    Name = "Lab4_IGW"
+  }
+}
+
+resource "aws_route_table" "public_rt" {
+    vpc_id = aws_vpc.lab4_vpc.id
+
+    route {
+        cidr_block = "0.0.0.0/0"
+        gateway_id=aws_internet_gateway.labigw.id
+  }
+}
+
 resource "aws_subnet" "public_subnet" {
   for_each = var.prefix
  

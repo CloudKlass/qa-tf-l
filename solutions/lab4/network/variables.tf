@@ -17,15 +17,15 @@ variable "prefix" {
    default = {
       sub-1 = {
          az = "usw2-az1"
-         cidr = "10.1.0.0/24"
+         cidr = "10.1.1.0/24"
       }
       sub-2 = {
          az = "usw2-az2"
-         cidr = "10.2.0.0/24"
+         cidr = "10.1.2.0/24"
       }
       sub-3 = {
          az = "usw2-az3"
-         cidr = "10.3.0.0/24"
+         cidr = "10.1.3.0/24"
       }
      
    }
@@ -36,15 +36,15 @@ variable "prefix2" {
    default = {
       sub-1 = {
          az = "usw2-az1"
-         cidr = "10.4.0.0/24"
+         cidr = "10.1.4.0/24"
       }
       sub-2 = {
          az = "usw2-az2"
-         cidr = "10.5.0.0/24"
+         cidr = "10.1.5.0/24"
       }
       sub-3 = {
          az = "usw2-az3"
-         cidr = "10.6.0.0/24"
+         cidr = "10.1.6.0/24"
       }
      
    }
