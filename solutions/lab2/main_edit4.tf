@@ -20,7 +20,7 @@ resource "aws_instance" "Web_App" {
   depends_on = [aws_instance.SQL_Server]
 
   tags = {
-    Name = "var.instance_name"
+    Name = var.instance_name
     KernelVers = "5.10"
     AMI_region = "Oregon"
   }
