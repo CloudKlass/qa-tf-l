@@ -21,8 +21,8 @@ provider "aws" {
   region = "us-west-2"
 }
 
-resource "random_pet" "bucketname" {  # Generate Random string to append to lab12 prefix
-  prefix = "lab12"
+resource "random_pet" "bucketname" {  # Generate Random string to append to lab5 prefix
+  prefix = "lab5"
  }
 
 resource "aws_s3_bucket" "lambda_bucket" { # Use generated string to create bucket

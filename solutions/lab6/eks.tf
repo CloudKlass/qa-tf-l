@@ -19,7 +19,7 @@ module "eks" {
   }
 
   # vpc defined in main.tf
-  vpc_id     = aws_vpc.Lab6_VPC.id
+  vpc_id     = aws_vpc.Lab6_vpc.id
   # subnet_ids = ["subnet-0934ac623b8426b1c", "subnet-09a711bf99d194017"] :- a list of subnet IDs for provisioning
   
   # Dynamic list of subnet IDs

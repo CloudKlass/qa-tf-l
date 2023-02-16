@@ -1,5 +1,5 @@
 variable "tag_name" {
-   default = "lab7-vpc"
+   default = "lab4-vpc"
 }
 
 variable "vpc-cidr" {
@@ -8,7 +8,7 @@ variable "vpc-cidr" {
 
 variable "labname" {
    description = "prefix for lab resources"
-   default = "lab7"
+   default = "lab4"
 }
 
 #map to create subnets : usw2 = US-WEST-2 (oregon) and this is followed by the desired AZ ie az1

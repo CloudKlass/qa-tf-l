@@ -30,8 +30,8 @@ data "aws_ami" "amazon-linux-2" {
   }
 }
 
-resource "aws_launch_configuration" "lab7_launchConfig" {
-  name_prefix     = "lab7-aws-asg-"
+resource "aws_launch_configuration" "lab4_launchConfig" {
+  name_prefix     = "lab4-aws-asg-"
   image_id        = data.aws_ami.amazon-linux-2.id
   instance_type   = "t2.micro"
   user_data       = file("userdata.sh")
@@ -42,31 +42,31 @@ resource "aws_launch_configuration" "lab7_launchConfig" {
   }
 }
 
-resource "aws_autoscaling_group" "lab7_asg" {
-  name                 = "lab7_asg"
+resource "aws_autoscaling_group" "lab4_asg" {
+  name                 = "lab4_asg"
   min_size             = 1
   max_size             = 4
   desired_capacity     = 2
-  launch_configuration = aws_launch_configuration.lab7_launchConfig.name
-  vpc_zone_identifier  = module.vpc.public_subnets
+  launch_configuration = aws_launch_configuration.lab4_launchConfig.name
+  vpc_zone_identifier  = [for subnet in module.vpc.public_subnets : subnet.id]
 
   tag {
     key                 = "Name"
-    value               = "lab7 Autoscaling Group"
+    value               = "lab4 Autoscaling Group"
     propagate_at_launch = true
   }
 }
 
-resource "aws_lb" "lab7-elb" {
-  name               = "lab7-elb"
+resource "aws_lb" "lab4-elb" {
+  name               = "lab4-elb"
   internal           = false
   load_balancer_type = "application"
-  security_groups    = [aws_security_group.lab7_lb.id]
-  subnets            = module.vpc.public_subnets
+  security_groups    = [aws_security_group.lab4_lb.id]
+  subnets            = [for subnet in module.vpc.public_subnets : subnet.id]
 }
 
 resource "aws_lb_listener" "ALB-listener" {
-  load_balancer_arn = aws_lb.lab7_lb.arn
+  load_balancer_arn = aws_lb.lab4_lb.arn
   port              = "80"
   protocol          = "HTTP"
 
@@ -84,8 +84,8 @@ resource "aws_lb_target_group" "ALB-targetgroup" {
 }
 
 
-resource "aws_autoscaling_attachment" "lab7-asg-attachment" {
-  autoscaling_group_name = aws_autoscaling_group.lab7_asg.id
+resource "aws_autoscaling_attachment" "lab4-asg-attachment" {
+  autoscaling_group_name = aws_autoscaling_group.lab4_asg.id
   alb_target_group_arn   = aws_lb_target_group.ALB-targetgroup.arn
 }
 
@@ -95,20 +95,20 @@ resource "aws_security_group" "ec2-sg-web" {
     from_port       = 80
     to_port         = 80
     protocol        = "tcp"
-    security_groups = [aws_security_group.lab7_lb.id]
+    security_groups = [aws_security_group.lab4_lb.id]
   }
 
   egress {
     from_port       = 0
     to_port         = 0
     protocol        = "-1"
-    security_groups = [aws_security_group.lab7_lb.id]
+    security_groups = [aws_security_group.lab4_lb.id]
   }
 
   vpc_id = module.vpc.vpc_id
 }
 
-resource "aws_security_group" "lab7_lb" {
+resource "aws_security_group" "lab4_lb" {
   name = "aws-sg-web-loadbalancer"
   ingress {
     from_port   = 80

@@ -1,18 +1,18 @@
 
-resource "aws_vpc" "Lab5_VPC" {
+resource "aws_vpc" "Lab3_vpc" {
     cidr_block = "10.1.0.0/16"
 }
 
 resource "aws_internet_gateway" "labigw" {
-  vpc_id = aws_vpc.Lab5_VPC.id
+  vpc_id = aws_vpc.Lab3_vpc.id
 
   tags = {
-    Name = "Lab5_IGW"
+    Name = "Lab3_IGW"
   }
 }
 
 resource "aws_subnet" "public_subnet"{
-    vpc_id     = aws_vpc.Lab5_VPC.id
+    vpc_id     = aws_vpc.Lab3_vpc.id
     cidr_block = "10.1.1.0/24"
 
     tags = {
@@ -22,7 +22,7 @@ resource "aws_subnet" "public_subnet"{
 
 
 resource "aws_route_table" "public_rt" {
-    vpc_id = aws_vpc.Lab5_VPC.id
+    vpc_id = aws_vpc.Lab3_vpc.id
 
     route {
         cidr_block = "0.0.0.0/0"
@@ -39,7 +39,7 @@ resource "aws_nat_gateway" "labnatgtw" {   # This is not actually needed for thi
   subnet_id     = aws_subnet.public_subnet.id
 
   tags = {
-    Name = "Lab5_NAT_GTW"
+    Name = "Lab3_NAT_GTW"
   }
 
   # Ensuring IGW is created

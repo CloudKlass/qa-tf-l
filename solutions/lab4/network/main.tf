@@ -1,4 +1,4 @@
-resource "aws_vpc" "lab7_vpc" {
+resource "aws_vpc" "lab4_vpc" {
   cidr_block = var.vpc-cidr
 
   tags = {
@@ -11,7 +11,7 @@ resource "aws_subnet" "public_subnet" {
  
   availability_zone_id = each.value["az"]
   cidr_block = each.value["cidr"]
-  vpc_id     = aws_vpc.lab7_VPC.id
+  vpc_id     = aws_vpc.lab4_VPC.id
 
   tags = {
     Name = "${var.labname}-subnet-${each.key}"
@@ -24,7 +24,7 @@ resource "aws_subnet" "private_subnet" {
  
   availability_zone_id = each.value["az"]
   cidr_block = each.value["cidr"]
-  vpc_id     = aws_vpc.lab7_VPC.id
+  vpc_id     = aws_vpc.lab4_vpc.id
 
   tags = {
     Name = "${var.labname}-subnet-${each.key}"

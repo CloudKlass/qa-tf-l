@@ -1,10 +1,10 @@
 resource "aws_security_group" "allow_web" {
   name        = "allow_web"
   description = "Allow web inbound traffic"
-  vpc_id      = aws_vpc.Lab5_VPC.id
+  vpc_id      = aws_vpc.Lab3_vpc.id
 
   ingress {
-    description      = "HTTP from VPC"
+    description      = "HTTP from vpc"
     from_port        = 80
     to_port          = 80
     protocol         = "tcp"
@@ -29,7 +29,7 @@ resource "aws_security_group" "allow_web" {
 resource "aws_security_group" "allow_ssh" {
   name        = "allow_ssh"
   description = "Allow port 22 ssh inbound traffic"
-  vpc_id      = aws_vpc.Lab5_VPC.id
+  vpc_id      = aws_vpc.Lab3_vpc.id
 
   ingress {
     description      = "ssh traffic inbound"

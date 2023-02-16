@@ -4,12 +4,12 @@ provider "aws" {
 }
 
 
-resource "aws_vpc" "Lab6_VPC" {
+resource "aws_vpc" "Lab6_vpc" {
     cidr_block = "10.1.0.0/16"
 }
 
 resource "aws_internet_gateway" "labigw" {
-  vpc_id = aws_vpc.Lab6_VPC.id
+  vpc_id = aws_vpc.Lab6_vpc.id
 
   tags = {
     Name = "Lab6_IGW"
@@ -17,7 +17,7 @@ resource "aws_internet_gateway" "labigw" {
 }
 
 resource "aws_subnet" "public_subnet"{
-    vpc_id     = aws_vpc.Lab6_VPC.id
+    vpc_id     = aws_vpc.Lab6_vpc.id
     cidr_block = "10.1.10.0/24"
 
     tags = {
@@ -32,13 +32,13 @@ data "aws_availability_zones" "azlist" {
     
 resource "aws_subnet" "privatesubnets" {
   count             = var.az_count
-  cidr_block        = cidrsubnet(aws_vpc.Lab6_VPC.cidr_block, 8, count.index)
+  cidr_block        = cidrsubnet(aws_vpc.Lab6_vpc.cidr_block, 8, count.index)
   availability_zone = data.aws_availability_zones.azlist.names[count.index]
-  vpc_id            = aws_vpc.Lab6_VPC.id
+  vpc_id            = aws_vpc.Lab6_vpc.id
 }
 
 resource "aws_route_table" "public_rt" {
-    vpc_id = aws_vpc.Lab6_VPC.id
+    vpc_id = aws_vpc.Lab6_vpc.id
 
     route {
         cidr_block = "0.0.0.0/0"
@@ -64,7 +64,7 @@ resource "aws_nat_gateway" "labnatgtw" {
 }
 
 resource "aws_route_table" "private_rt" {
-    vpc_id = aws_vpc.Lab6_VPC.id
+    vpc_id = aws_vpc.Lab6_vpc.id
 
     route {
         cidr_block = "0.0.0.0/0"

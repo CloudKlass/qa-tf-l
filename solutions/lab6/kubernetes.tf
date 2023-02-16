@@ -2,7 +2,7 @@
       source  = "hashicorp/kubernetes"
       version = ">= 2.0.1"
     }
-  }
+ 
 
 # 'Required Version' would be here in the cloud.tf file
 

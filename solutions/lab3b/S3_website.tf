@@ -1,11 +1,11 @@
 resource "aws_s3_bucket_acl" "s3_bucket" {
-  bucket = aws_s3_bucket.Lab10bucket.id
+  bucket = aws_s3_bucket.lab3bucket.id
 
   acl = "public-read"
 }
 
 resource "aws_s3_bucket_policy" "s3_bucket" {
-  bucket = aws_s3_bucket.Lab10bucket.id
+  bucket = aws_s3_bucket.lab3bucket.id
 
   policy = jsonencode({
     Version = "2012-10-17"
@@ -16,8 +16,8 @@ resource "aws_s3_bucket_policy" "s3_bucket" {
         Principal = "*"
         Action    = "s3:GetObject"
         Resource = [
-          aws_s3_bucket.Lab10bucket.arn,
-          "${aws_s3_bucket.Lab10bucket.arn}/*",
+          aws_s3_bucket.lab3bucket.arn,
+          "${aws_s3_bucket.lab3bucket.arn}/*",
         ]
       }
       ]
@@ -27,7 +27,7 @@ resource "aws_s3_bucket_policy" "s3_bucket" {
   
   
 resource "aws_s3_bucket_website_configuration" "s3_web" {
-  bucket = aws_s3_bucket.Lab10bucket.bucket
+  bucket = aws_s3_bucket.lab3bucket.bucket
 # if your name is not unique, or you used the name from the previous bucket task the Apply will eventually time out with error
   index_document {
     suffix = "index.html"
@@ -39,7 +39,7 @@ resource "aws_s3_bucket_website_configuration" "s3_web" {
 }
 
   resource "aws_s3_object" "index_copy" {
-  bucket = "${aws_s3_bucket.Lab10bucket.id}"
+  bucket = "${aws_s3_bucket.lab3bucket.id}"
   key    = "index.html"
   source = "./index.html"
   

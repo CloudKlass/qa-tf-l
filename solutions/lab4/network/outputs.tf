@@ -1,7 +1,7 @@
 
 output "vpc_id" {
     description = "ID of the VPC"
-    value = aws_vpc.lab7_VPC.id
+    value = aws_vpc.lab4_vpc.id
 }
 
 output "public_subnets" {
