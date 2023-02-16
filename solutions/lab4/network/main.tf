@@ -23,6 +23,12 @@ resource "aws_route_table" "public_rt" {
   }
 }
 
+resource "aws_route_table_association" "public_rta" {
+    subnet_id      = aws_subnet.public_subnet.id
+    route_table_id = aws_route_table.public_rt.id
+}
+
+
 resource "aws_subnet" "public_subnet" {
   for_each = var.prefix
  
@@ -31,7 +37,7 @@ resource "aws_subnet" "public_subnet" {
   vpc_id     = aws_vpc.lab4_vpc.id
 
   tags = {
-    Name = "${var.labname}-subnet-${each.key}"
+    Name = "${var.labname}-pub-subnet-${each.key}"
   }
   # Generating a name tag for the subnets based upon an expression
 }
@@ -44,6 +50,6 @@ resource "aws_subnet" "private_subnet" {
   vpc_id     = aws_vpc.lab4_vpc.id
 
   tags = {
-    Name = "${var.labname}-subnet-${each.key}"
+    Name = "${var.labname}-priv-subnet-${each.key}"
   }
 }
