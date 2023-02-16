@@ -30,11 +30,12 @@ data "aws_ami" "amazon-linux-2" {
   }
 }
 
-resource "aws_launch_configuration" "lab4_launchConfig" {
-  name_prefix     = "lab4-aws-asg-"
+resource "aws_launch_template" "lab4_lt" {
+  name            = "lab4-launchtemplate"
   image_id        = data.aws_ami.amazon-linux-2.id
   instance_type   = "t3.small"
-  user_data       = file("userdata.sh")
+  #user_data       = file("userdata.sh")
+  user_data       = filebase64("${path.module}/userdata64.sh") #Base64 encoded version of userdata.sh
   security_groups = [aws_security_group.ec2-sg-web.id]
 
   lifecycle {
@@ -42,12 +43,18 @@ resource "aws_launch_configuration" "lab4_launchConfig" {
   }
 }
 
+
+
+
 resource "aws_autoscaling_group" "lab4_asg" {
   name                 = "lab4_asg"
   min_size             = 1
   max_size             = 4
   desired_capacity     = 2
-  launch_configuration = aws_launch_configuration.lab4_launchConfig.name
+  launch_template {
+    id      = aws_launch_template.lab4_lt.id
+    version = "$Latest"
+  }
   vpc_zone_identifier  = [for subnet in module.vpc.public_subnets : subnet.id]
 
   tag {
