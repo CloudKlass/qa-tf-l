@@ -33,7 +33,7 @@ data "aws_ami" "amazon-linux-2" {
 resource "aws_launch_configuration" "lab4_launchConfig" {
   name_prefix     = "lab4-aws-asg-"
   image_id        = data.aws_ami.amazon-linux-2.id
-  instance_type   = "t2.micro"
+  instance_type   = "t3.small"
   user_data       = file("userdata.sh")
   security_groups = [aws_security_group.ec2-sg-web.id]
 
@@ -96,6 +96,7 @@ resource "aws_security_group" "ec2-sg-web" {
     to_port         = 80
     protocol        = "tcp"
     security_groups = [aws_security_group.lab4_lb.id]
+    #cidr_blocks = ["0.0.0.0/0"]
   }
 
   egress {
@@ -103,6 +104,7 @@ resource "aws_security_group" "ec2-sg-web" {
     to_port         = 0
     protocol        = "-1"
     security_groups = [aws_security_group.lab4_lb.id]
+    #cidr_blocks = ["0.0.0.0/0"]
   }
 
   vpc_id = module.vpc.vpc_id
