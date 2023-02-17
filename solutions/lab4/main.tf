@@ -33,13 +33,13 @@ data "aws_ami" "amazon-linux-2" {
 resource "aws_launch_template" "lab4_lt" {
   name            = "lab4-launchtemplate"
   image_id        = data.aws_ami.amazon-linux-2.id
-  instance_type   = "t3.small"
+  instance_type   = "t3.medium"
   #user_data       = file("userdata.sh")
   user_data       = filebase64("${path.module}/userdata64.sh") #Base64 encoded version of userdata.sh
-  vpc_security_group_ids = [aws_security_group.ec2-sg-web.id]
   
   network_interfaces {
     associate_public_ip_address = true
+    security_groups = [aws_security_group.ec2-sg-web.id]
   }
   
   lifecycle {
