@@ -36,7 +36,7 @@ resource "aws_launch_template" "lab4_lt" {
   instance_type   = "t3.small"
   #user_data       = file("userdata.sh")
   user_data       = filebase64("${path.module}/userdata64.sh") #Base64 encoded version of userdata.sh
-  security_groups = [aws_security_group.ec2-sg-web.id]
+  vpc_security_group_ids = [aws_security_group.ec2-sg-web.id]
 
   lifecycle {
     create_before_destroy = true
@@ -97,7 +97,7 @@ resource "aws_autoscaling_attachment" "lab4-asg-attachment" {
 }
 
 resource "aws_security_group" "ec2-sg-web" {
-  name = "aws-ec2-web-loadbalancer"
+  name = "aws-ec2-web-from-lb"
   ingress {
     from_port       = 80
     to_port         = 80
@@ -118,7 +118,7 @@ resource "aws_security_group" "ec2-sg-web" {
 }
 
 resource "aws_security_group" "lab4_lb" {
-  name = "aws-sg-web-loadbalancer"
+  name = "aws-lb-web-from-internet"
   ingress {
     from_port   = 80
     to_port     = 80
