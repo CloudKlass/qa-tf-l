@@ -37,7 +37,11 @@ resource "aws_launch_template" "lab4_lt" {
   #user_data       = file("userdata.sh")
   user_data       = filebase64("${path.module}/userdata64.sh") #Base64 encoded version of userdata.sh
   vpc_security_group_ids = [aws_security_group.ec2-sg-web.id]
-  associate_public_ip_address = true
+  
+  network_interfaces {
+    associate_public_ip_address = true
+  }
+  
   lifecycle {
     create_before_destroy = true
   }
