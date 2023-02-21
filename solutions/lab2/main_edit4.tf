@@ -17,7 +17,7 @@ resource "aws_instance" "Web_App" {
   ami           = "ami-098e42ae54c764c35"
   instance_type = "t2.micro"
 
-  depends_on = [aws_instance.SQL_Server] #changes from parallel to sequential execultion between the EC2s
+  depends_on = [aws_instance.SQL_Server]   #LAST EDIT CHANGE - changes from parallel to sequential execultion between the EC2s
 
   tags = {
     Name = var.instance_name
