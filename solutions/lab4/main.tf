@@ -22,8 +22,8 @@ module "vpc" {
 
 resource "aws_launch_template" "lab4_lt" {
   name            = "lab4-launchtemplate"
-  image_id        = "ami-03acc01f4fd0d787d"
-  instance_type   = "t3.medium"
+  image_id        = "ami-00b42b8280d3011fe"
+  instance_type   = "t3.small"
   #user_data       = file("userdata.sh")
   user_data       = filebase64("${path.module}/userdata64.sh") #Base64 encoded version of userdata.sh
   
