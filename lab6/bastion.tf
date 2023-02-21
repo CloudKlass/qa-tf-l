@@ -1,27 +1,21 @@
 
-resource "aws_instance" "bastion" {
-  ami           = data.aws_ami.amazon-linux-2.id
+resource "aws_instance" "jump_box" {
+  ami           = data.aws_ami.awslinux2.id
   instance_type = "t2.micro"
   subnet_id = aws_subnet.public_subnet.id
-  #[for subnet in module.vpc.public_subnets : subnet.id]
-  vpc_security_group_ids = aws_security_group.allow_ssh
+  associate_public_ip_address = true
+  vpc_security_group_ids = [aws_security_group.allow_ssh_bh.id]
 
   tags = {
-    Name = "Lab2 EC2 Web App",
-    KernelVers = "4.14",
-    AMI_region = "Oregon"
+    Name = "Jump-Box"
+    
   }
 }
 
-resource "aws_eip" "static_ip" {
-  vpc      = true
-  instance = aws_instance.bastion.id
-  }
- 
-resource "aws_security_group" "allow_ssh" {
+resource "aws_security_group" "allow_ssh_bh" { # We will use EC2 instance connect for terminal access into EKS. This requires port 22 from AWS
   name        = "allow_ssh"
   description = "Allow port 22 ssh inbound traffic"
-  vpc_id      = aws_vpc.Lab3_vpc.id
+  vpc_id      = aws_vpc.Lab6_vpc.id
 
   ingress {
     description      = "ssh traffic inbound"
@@ -47,7 +41,7 @@ resource "aws_security_group" "allow_ssh" {
 
 
 # use DATA to retrive the latest Amazon Linux 2 AMI
-data "aws_ami" "amazon-linux-2" {
+data "aws_ami" "awslinux2" {
   most_recent = true
   owners      = ["amazon"]
 

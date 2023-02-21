@@ -1,7 +1,7 @@
 terraform {
 
   cloud {
-    organization = "TestOrg-QATIP" # Ensure this matches the Org created in the browser
+    organization = "QATIP" # Ensure this matches the Org created in the browser
 
     workspaces {
       name = "lab6-workspace" # use a unique name within your organisation

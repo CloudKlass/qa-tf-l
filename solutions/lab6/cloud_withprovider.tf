@@ -1,7 +1,7 @@
 terraform {
 
   cloud {
-    organization = "TestOrg-QATIP"
+    organization = "QATIP"
 
     workspaces {
       name = "lab6-workspace"
@@ -25,7 +25,7 @@ terraform {
 data "terraform_remote_state" "eks" {
   backend = "remote"
    config = {
-    organization = "TestOrg-QATIP" # Change this to match the organisation created earlier
+    organization = "QATIP" # Change this to match the organisation created earlier
     workspaces = {
       name = "lab6-workspace" # Change this to match the workspace created earlier
   }
@@ -34,7 +34,11 @@ data "terraform_remote_state" "eks" {
 # Retrieve EKS cluster information
 
 data "aws_eks_cluster" "cluster" {
-  name = data.terraform_remote_state.eks.outputs.cluster_id
+  name = "my-eks-cluster"
+}
+
+output "endpoint" {
+  value = data.aws_eks_cluster.cluster.endpoint
 }
 
 provider "kubernetes" {
