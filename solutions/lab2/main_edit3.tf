@@ -28,7 +28,8 @@ resource "aws_eip" "static_ip" {
   instance = aws_instance.web.id
   }
  resource "aws_instance" "SQL_Server" {
-  ami           = "ami-03acc01f4fd0d787d" #Note: We have used a pre-created AMI stored in annother account. This is because AWS regularly update windows images.
+  ami           = "ami-0eb686b910826cf7b" #Note: We have used a pre-created AMI stored in annother account. This is because AWS regularly update windows images.
+  # This AMI is only available in Oregon : US-West-2
   instance_type = "t3.xlarge" #Note: Change in AMI may require another supported instance type - Try t3.xlarge as noted here
 
   tags = {
