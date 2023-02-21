@@ -18,21 +18,11 @@ module "vpc" {
   source  = "./network"
 
 }
-# use DATA to retrive the latest Amazon Linux 2 AMI
-data "aws_ami" "amazon-linux-2" {
-  most_recent = true
-  owners      = ["amazon"]
 
-  filter {
-    name   = "name"
-    values = ["amzn2-ami-kernel-5.10-*-x86_64-ebs"]     # Similar to running the CLI command: 
-                                                        # aws ec2 describe-images --owners amazon --filters "Name=name,Values=amzn2-ami-kernel-5.10-*-x86_64-ebs"
-  }
-}
 
 resource "aws_launch_template" "lab4_lt" {
   name            = "lab4-launchtemplate"
-  image_id        = data.aws_ami.amazon-linux-2.id
+  image_id        = "ami-03acc01f4fd0d787d"
   instance_type   = "t3.medium"
   #user_data       = file("userdata.sh")
   user_data       = filebase64("${path.module}/userdata64.sh") #Base64 encoded version of userdata.sh

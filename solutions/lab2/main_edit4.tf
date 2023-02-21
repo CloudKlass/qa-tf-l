@@ -17,7 +17,7 @@ resource "aws_instance" "Web_App" {
   ami           = "ami-098e42ae54c764c35"
   instance_type = "t2.micro"
 
-  depends_on = [aws_instance.SQL_Server]
+  depends_on = [aws_instance.SQL_Server] #changes from parallel to sequential execultion between the EC2s
 
   tags = {
     Name = var.instance_name
@@ -32,7 +32,7 @@ resource "aws_eip" "static_ip" {
   }
 
  resource "aws_instance" "SQL_Server" {
-  ami           = "ami-07c12b11bae4091a0" #Note: if 400 error is thrown choose another AMI ID (if AWS update, will no longer give access) - Browse console to find a new AMI *later we will do this dynamically through a lookup
+  ami           = "ami-03acc01f4fd0d787d" #Note: We have used a pre-created AMI stored in annother account. This is because AWS regularly update windows images.
   instance_type = "t3.xlarge" #Note: Change in AMI may require another supported instance type - Try t3.xlarge as noted here
 
   tags = {
